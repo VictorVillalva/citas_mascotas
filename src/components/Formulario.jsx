@@ -1,7 +1,7 @@
 //Hooks
 import { useState, useEffect } from "react";
 
-const Formulario = () => {
+const Formulario = ({ pacientes,setPacientes }) => {
   //Declaracion de mi States (variables)
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -18,11 +18,30 @@ const Formulario = () => {
     if([nombre,propietario,email,fecha,sintomas].includes('')){
       console.log('Hay al menos un campo vacio');
       setError(true);
-    }else{
-      console.log('Todos los datos llenos');
+      return;
     }
 
-    console.log('Enviando Formulario')
+    setError(false);
+
+    //Objeto de Paciente
+    const objetoPaciente = {
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas
+    }
+
+    setPacientes([...pacientes, objetoPaciente]); //Genera nuevo arreglo y almacenamos con setPacientes sin modificar el arreglo original
+
+    //Reiniciar el form
+    setNombre('')
+    setPropietario('')
+    setEmail('')
+    setFecha('')
+    setSintomas('')
+
+    
   }
 
 
